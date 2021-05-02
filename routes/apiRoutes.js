@@ -1,16 +1,16 @@
 const fs = require("fs");
 const path = require("path");
-let jsonDb = require("../db/db.json");
+let jsonDb = require("../Develop/db/db.json");
 
 module.exports = (app) => {
     const readPromise = () => 
     new Promise((res, rej) => {
-        fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data)=> {
+        fs.readFile(path.join(__dirname, '../Develop/db/db.json'), 'utf8', (err, data)=> {
             if (err) rej (err);
             res(data)
         })
     })
-}
+
 
 
 const writePromise = (data, operate) => 
@@ -25,7 +25,7 @@ new Promises((res, rej) => {
             jsonDb = data;
             break;
     }
-    fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify (jsonDb), (err) => {
+    fs.writeFile(path.join(__dirname, "../Develop/db/db.json"), JSON.stringify (jsonDb), (err) => {
         if (err) rej (err);
         result = (operate == 'post')?"<< WRITTEN !! >>":"<< DELETED !! >>"
         res(result)
@@ -37,3 +37,5 @@ app.get("/api/notes", (req, res) => {
         res.json(JSON.parse(result));
     }).catch(err => console.log(err));
 });
+
+}
