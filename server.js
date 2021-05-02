@@ -16,5 +16,5 @@ require('./routes/htmlRoutes')(app);
 
 // application request and response throught port
 app.listen(PORT,()=>{
-    console.log(`connected to port: ${PORT}`);
+    console.log(`connected to port http://localhost:${PORT}`);
 });

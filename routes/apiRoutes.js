@@ -1,11 +1,11 @@
 const fs = require("fs");
 const path = require("path");
-let jsonDb = require("../Develop/db/db.json");
+let jsonDb = require("../db/db.json");
 
 module.exports = (app) => {
     const readPromise = () => 
     new Promise((res, rej) => {
-        fs.readFile(path.join(__dirname, '../Develop/db/db.json'), 'utf8', (err, data)=> {
+        fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data)=> {
             if (err) rej (err);
             res(data)
         })
@@ -25,7 +25,7 @@ new Promises((res, rej) => {
             jsonDb = data;
             break;
     }
-    fs.writeFile(path.join(__dirname, "../Develop/db/db.json"), JSON.stringify (jsonDb), (err) => {
+    fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify (jsonDb), (err) => {
         if (err) rej (err);
         result = (operate == 'post')?"<< WRITTEN !! >>":"<< DELETED !! >>"
         res(result)
@@ -54,6 +54,19 @@ app.post('/api/notes', (req, res) => {
     res.json(true);
 });;
 
-
+app.delete("/api/notes/:id", (req, res) =>{
+    readPromise().then(data => {
+        let getID = req.params.id.toString();
+        let parse = JSON.parse(data);
+        let filterData = parse.filter(result => result.id.toString() != getID);
+        writePromise(filterData, "delete")
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    })
+    res.JSON(true)
+})
+app.get("/api/notes/:id", function(req,res) {
+    res.json(jsonDb[req.params.id]);
+});
 
 }
