@@ -38,4 +38,22 @@ app.get("/api/notes", (req, res) => {
     }).catch(err => console.log(err));
 });
 
+app.post('/api/notes', (req, res) => {
+    if (jsonDb.length != 0){
+        let getData = jsonDb.sort((x,y) => {
+            return parseInt(y.id) - parseInt(x.id)
+        });
+        let getIdAndAddOne = parseInt(getData[0].id) +1;
+        req.body.id = JSON.stringify(getIdAndAddOne)
+    }else {
+        req.body.id = "1"
+    }
+    writePromise(req.body, "post")
+    .then(res => console.log(res))
+    .catch(err => console.log(err));;
+    res.json(true);
+});;
+
+
+
 }
