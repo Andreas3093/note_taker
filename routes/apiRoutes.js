@@ -14,7 +14,7 @@ module.exports = (app) => {
 
 
 const writePromise = (data, operate) => 
-new Promises((res, rej) => {
+new Promise((res, rej) => {
     let result;
     switch(operate){
         case 'post':
