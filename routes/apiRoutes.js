@@ -25,7 +25,7 @@ new Promise((res, rej) => {
             jsonDb = data;
             break;
     }
-    fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify (jsonDb), (err) => {
+    fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(jsonDb), (err) => {
         if (err) rej (err);
         result = (operate == 'post')?"<< WRITTEN !! >>":"<< DELETED !! >>"
         res(result)
@@ -54,17 +54,19 @@ app.post('/api/notes', (req, res) => {
     res.json(true);
 });;
 
-app.delete("/api/notes/:id", (req, res) =>{
-    readPromise().then(data => {
+app.delete("/api/notes/:id",(req,res)=>{
+    readPromise().then(data=>{
         let getID = req.params.id.toString();
         let parse = JSON.parse(data);
-        let filterData = parse.filter(result => result.id.toString() != getID);
-        writePromise(filterData, "delete")
-        .then(res => console.log(res))
+        let filteredData =  parse.filter(result => result.id.toString() != getID); 
+        writePromise(filteredData,"delete")
+        .then(res=>console.log(res))
         .catch(err => console.log(err));
     })
-    res.JSON(true)
-})
+    res.json(true);
+
+});
+
 app.get("/api/notes/:id", function(req,res) {
     res.json(jsonDb[req.params.id]);
 });
