@@ -8,6 +8,8 @@ Note-Taker
   - [Installation](#installation)
   - [Usage Information](#usage-information)
   - [Screenshot](#screenshot)
+  - [Video](#video)
+  - [Deployed](#deployed)
 
 ## Description
 The application which stores the important event, or any important session with title and description. For frontend html,js, css are used while for backend js, node, express as framework are used, and the result stores in db.json file in json format.
@@ -19,4 +21,10 @@ need to clone first the project then need to perform 'npm i', and after that run
 useful for storing the note for future, or save as happened events. 
 
 ## Screenshot
-![Application Screen]()
+![Application Screen](./public/assets/img/sdemo.png)
+
+## Video
+![Video](./public/assets/img/demo.gif)
+
+## Deployed
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://note-taker-andreas-irta.herokuapp.com/)

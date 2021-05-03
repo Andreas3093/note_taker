@@ -43,10 +43,10 @@ app.post('/api/notes', (req, res) => {
         let getData = jsonDb.sort((x,y) => {
             return parseInt(y.id) - parseInt(x.id)
         });
-        let getIdAndAddOne = parseInt(getData[0].id) +1;
+        let getIdAndAddOne = parseInt(getData[0].id) + 1;
         req.body.id = JSON.stringify(getIdAndAddOne)
     }else {
-        req.body.id = "1"
+        req.body.id = "1";
     }
     writePromise(req.body, "post")
     .then(res => console.log(res))
@@ -56,9 +56,10 @@ app.post('/api/notes', (req, res) => {
 
 app.delete("/api/notes/:id",(req,res)=>{
     readPromise().then(data=>{
-        let getID = req.params.id.toString();
+        let getID = req.params.id;
         let parse = JSON.parse(data);
-        let filteredData =  parse.filter(result => result.id.toString() != getID); 
+        let filteredData =  parse.filter(result => {
+            return result.id != getID}); 
         writePromise(filteredData,"delete")
         .then(res=>console.log(res))
         .catch(err => console.log(err));
@@ -67,7 +68,7 @@ app.delete("/api/notes/:id",(req,res)=>{
 
 });
 
-app.get("/api/notes/:id", function(req,res) {
+app.get("/api/notes/:id", (req,res) => {
     res.json(jsonDb[req.params.id]);
 });
 
